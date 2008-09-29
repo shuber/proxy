@@ -16,12 +16,14 @@ class BaseTest < Test::Unit::TestCase
   
   def test_should_set_relative_url_root
     @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/normal_action'
+    @request.env['PATH_INFO'] = '/normal_action'
     get :normal_action
     assert_equal 'http://example.com/test/ing/normal_action', @response.body
   end
   
   def test_should_restore_relative_url_root
     @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/normal_action'
+    @request.env['PATH_INFO'] = '/normal_action'
     get :normal_action
     assert_equal 'http://example.com/test/ing/normal_action', @response.body
     assert_equal '/app', ::ActionController::AbstractRequest.relative_url_root
