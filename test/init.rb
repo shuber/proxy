@@ -37,34 +37,21 @@ ActionController::AbstractRequest.relative_url_root = '/app'
 # Test controller
 #
 class TestController < ActionController::Base
-  prepend_before_filter :set_class_relative_url_root, :only => :action_with_relative_url_root
-  
-  def action_with_relative_url_root
-    display
-  end
-  
+
   def normal_action
-    display
+    render :text => url_for(:controller => 'test', :action => 'normal_action')
   end
   
   protected
-  
-    def display
-      render :text => url_for(:controller => 'test', :action => 'normal_action')
-    end
   
     def rescue_action(e)
       raise e
     end
     
-    def set_class_relative_url_root
-      self.class.relative_url_root = '/test'
-    end
 end
 
 # Test routes
 #
 ActionController::Routing::Routes.append do |map|
-  map.connect 'action_with_relative_url_root', :controller => 'test', :action => 'action_with_relative_url_root'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
 end

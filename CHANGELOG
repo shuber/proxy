@@ -1,4 +1,7 @@
 2008-09-29 - Sean Huber (shuber@huberry.com)
+	* Base automatically detects HTTP_X_FORWARDED_URI and determines relative_url_root (can be overwritten)
+
+2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Added some tests - still need to figure out how to test Dispatcher
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
