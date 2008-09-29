@@ -1,4 +1,8 @@
 2008-09-29 - Sean Huber (shuber@huberry.com)
+	* The HTTP_X_FORWARDED_URI variable name can be changed to something else
+	* Updated README
+
+2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Updated README
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
