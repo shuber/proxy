@@ -1,2 +1,5 @@
 2008-09-29 - Sean Huber (shuber@huberry.com)
+	* Added some tests - still need to figure out how to test Dispatcher
+
+2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Initial import
