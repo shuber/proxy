@@ -1,4 +1,7 @@
 2008-09-29 - Sean Huber (shuber@huberry.com)
+	* Regex to determine relative root url is now properly escaped
+
+2008-09-29 - Sean Huber (shuber@huberry.com)
 	* The HTTP_X_FORWARDED_URI variable name can be changed to something else
 	* Updated README
 
