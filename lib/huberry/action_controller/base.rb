@@ -12,7 +12,7 @@ module Huberry
       protected
       
         def set_class_relative_url_root
-          self.relative_url_root = request.env['HTTP_X_FORWARDED_URI'].gsub(/#{request.env['PATH_INFO']}$/, '') unless request.env['HTTP_X_FORWARDED_URI'].blank?
+          self.relative_url_root = request.env['HTTP_X_FORWARDED_URI'].split(',').first.gsub(/#{request.env['PATH_INFO']}$/, '') unless request.env['HTTP_X_FORWARDED_URI'].blank?
         end
 
         def set_relative_url_root

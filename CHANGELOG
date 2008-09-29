@@ -1,4 +1,7 @@
 2008-09-29 - Sean Huber (shuber@huberry.com)
+	* Base can now parse a comma separated string of forwarded uris
+
+2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Updated Base tests
 
 2008-09-29 - Sean Huber (shuber@huberry.com)

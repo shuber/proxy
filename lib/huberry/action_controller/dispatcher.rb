@@ -15,7 +15,7 @@ module Huberry
       
       def set_default_host
         @original_default_host = ::ActionController::UrlRewriter.default_url_options[:host].to_s
-        ::ActionController::UrlRewriter.default_url_options[:host] = @request.env['HTTP_X_FORWARDED_HOST'].blank? ? @request.host.to_s : @request.env['HTTP_X_FORWARDED_HOST'].split(', ').first
+        ::ActionController::UrlRewriter.default_url_options[:host] = @request.env['HTTP_X_FORWARDED_HOST'].blank? ? @request.host.to_s : @request.env['HTTP_X_FORWARDED_HOST'].split(',').first
       end
       
       def set_session_domain
