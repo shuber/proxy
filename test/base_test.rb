@@ -8,7 +8,7 @@ class BaseTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
     @request.host = 'example.com'
     @relative_url_root = '/app'
-    ActionController::AbstractRequest.relative_url_root = @relative_url_root
+    ActionController::Base.relative_url_root = @relative_url_root
   end
   
   def test_should_get_normal_action
@@ -20,7 +20,7 @@ class BaseTest < Test::Unit::TestCase
     add_request_environment_variables
     get :normal_action
     assert_equal 'http://example.com/test/ing/normal_action', @response.body
-    assert_equal @relative_url_root, ::ActionController::AbstractRequest.relative_url_root
+    assert_equal @relative_url_root, ::ActionController::Base.relative_url_root
   end
   
   def test_should_set_original_relative_url_root

@@ -1,4 +1,7 @@
 2008-10-01 - Sean Huber (shuber@huberry.com)
+  * ActionController::Base will delegate relative_url_root to AbstractRequest if necessary to support older versions of actionpack
+
+2008-10-01 - Sean Huber (shuber@huberry.com)
   * Added more AbstractRequest tests
 
 2008-10-01 - Sean Huber (shuber@huberry.com)

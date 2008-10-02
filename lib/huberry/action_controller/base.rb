@@ -4,28 +4,29 @@ module Huberry
       def self.included(base)
         base.class_eval do
           cattr_accessor :original_relative_url_root
-          cattr_accessor :relative_url_root
-          before_filter :set_relative_url_root
+          cattr_accessor :proxy_relative_url_root
+          before_filter :set_proxy_relative_url_root
           around_filter :swap_relative_url_root
+          class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless respond_to? :relative_url_root; end
         end
       end
 
       protected
       
-        def set_relative_url_root
-          self.class.relative_url_root = request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '') unless request.forwarded_uris.empty?
+        def set_proxy_relative_url_root
+          self.class.proxy_relative_url_root = request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '') unless request.forwarded_uris.empty?
         end
 
         def swap_relative_url_root
-          if self.class.relative_url_root.blank?
+          if self.class.proxy_relative_url_root.blank?
             yield
           else
-            self.class.original_relative_url_root = ::ActionController::AbstractRequest.relative_url_root.to_s
-            ::ActionController::AbstractRequest.relative_url_root = self.class.relative_url_root
+            self.class.original_relative_url_root = ::ActionController::Base.relative_url_root.to_s
+            ::ActionController::Base.relative_url_root = self.class.proxy_relative_url_root
             begin
               yield
             ensure
-              ::ActionController::AbstractRequest.relative_url_root = self.class.original_relative_url_root
+              ::ActionController::Base.relative_url_root = self.class.original_relative_url_root
             end
           end
         end
