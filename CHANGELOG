@@ -3,6 +3,7 @@
   * Added Rakefile
 	* Fixed bug - referred to ActionController instead of ActionController::Base
 	* Fixed bug - plugin was not being loaded properly
+	* Updated README
 
 2008-10-01 - Sean Huber (shuber@huberry.com)
 	* Moved some forwarded host logic into AbstractRequest

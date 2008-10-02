@@ -39,7 +39,8 @@ Relative Root Url Proxy Setup
 
 The client's proxy must forward the request uri header for this plugin to automatically set the relative root url correctly. Here is how the client would setup a proxy in apache for the example above:
 
-	RewriteRule ^/neworders(.*) http://client.example.com/orders$1 [L,P,E=originalUri:%{REQUEST_URI}]
+	RewriteRule ^neworders$ /neworders/ [L,R=302]
+	RewriteRule ^neworders/(.*) http://client.example.com/orders/$1 [P,E=originalUri:%{REQUEST_URI}]
 	RequestHeader append X_FORWARDED_URI %{originalUri}e
 
 
