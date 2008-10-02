@@ -32,13 +32,13 @@ class BaseTest < Test::Unit::TestCase
   
   def test_should_set_the_session_domain
     get :normal_action
-    assert_equal ".#{@request.host}", ::ActionController.session_options[:session_domain]
+    assert_equal ".#{@request.host}", ::ActionController::Base.session_options[:session_domain]
   end
   
   def test_should_set_the_session_domain_with_a_forwarded_host
     add_forwarded_host_headers
     get :normal_action
-    assert_equal '.domain.com', ::ActionController.session_options[:session_domain]
+    assert_equal '.domain.com', ::ActionController::Base.session_options[:session_domain]
   end
   
   def test_should_restore_original_host_if_exception_is_raised

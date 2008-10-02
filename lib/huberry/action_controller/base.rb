@@ -20,7 +20,7 @@ module Huberry
         end
         
         def set_session_domain
-          ::ActionController.session_options.merge!(:session_domain => ".#{$1}") if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first || request.host)
+          ::ActionController::Base.session_options.merge!(:session_domain => ".#{$1}") if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first || request.host)
         end
         
         def swap_default_host
