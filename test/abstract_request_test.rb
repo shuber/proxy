@@ -5,6 +5,9 @@ class AbstractRequestTest < Test::Unit::TestCase
   def setup
     @request = ActionController::TestRequest.new
     @request.host = 'example.com'
+    ActionController::UrlWriter.default_url_options[:host] = nil
+    ActionController::Base.relative_url_root = nil
+    ActionController::Base.proxy_relative_url_root = nil
   end
   
   def test_forwarded_hosts_should_be_empty
@@ -56,9 +59,11 @@ class AbstractRequestTest < Test::Unit::TestCase
   end
   
   def test_should_be_able_to_use_custom_forwarded_uri_header_name
+    @original_header_name = ActionController::AbstractRequest.forwarded_uri_header_name
     @request.env['HTTP_CUSTOM_FORWARDED_URI'] = '/test/ing'
     ActionController::AbstractRequest.forwarded_uri_header_name = 'HTTP_CUSTOM_FORWARDED_URI'
     assert_equal ['/test/ing'], @request.forwarded_uris
+    ActionController::AbstractRequest.forwarded_uri_header_name = @original_header_name
   end
   
 end

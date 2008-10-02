@@ -1,3 +1,7 @@
+2008-10-02 - Sean Huber (shuber@huberry.com)
+  * Removed Dispatcher and moved that logic into Base
+  * Added Rakefile
+
 2008-10-01 - Sean Huber (shuber@huberry.com)
 	* Moved some forwarded host logic into AbstractRequest
 	* Added AbstractRequest tests and renamed BaseTest file

@@ -15,9 +15,9 @@ class UrlRewriterTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
     @request.host = 'example.com'
     @url_rewriter = UrlRewriter.new(@request, {})
-    @dispatcher = ActionController::Dispatcher.new(StringIO.new)
-    @dispatcher.instance_variable_set('@request', @request)
     ActionController::UrlWriter.default_url_options[:host] = nil
+    ActionController::Base.relative_url_root = nil
+    ActionController::Base.proxy_relative_url_root = nil
   end
   
   def test_should_rewrite_normal_action_with_request_host
@@ -33,20 +33,5 @@ class UrlRewriterTest < Test::Unit::TestCase
     ActionController::UrlWriter.default_url_options[:host] = 'test.com'
     assert_equal 'http://test.com/normal_action', @url_rewriter.rewrite_url
   end
-  
-  def test_should_rewrite_normal_action_with_forwarded_host
-    around_dispatcher_callbacks('domain.com') do
-      assert_equal 'http://domain.com/normal_action', @url_rewriter.rewrite_url
-    end
-  end
-  
-  protected
-  
-    def around_dispatcher_callbacks(forwarded_host = false)
-      @request.env['HTTP_X_FORWARDED_HOST'] = forwarded_host if forwarded_host
-      ::ActionController::Dispatcher.before_dispatch_callback_chain.each { |callback| callback.call(@dispatcher) }
-      yield if block_given?
-      ::ActionController::Dispatcher.after_dispatch_callback_chain.each { |callback| callback.call(@dispatcher) }
-    end
   
 end
