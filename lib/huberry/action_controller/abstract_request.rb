@@ -3,7 +3,7 @@ module Huberry
     module AbstractRequest
       def self.included(base)
         base.class_eval do
-          cattr_accessor :forwarded_uri_header_name
+          mattr_accessor :forwarded_uri_header_name
           self.forwarded_uri_header_name = 'HTTP_X_FORWARDED_URI'
           memoize :forwarded_hosts, :forwarded_uris if respond_to? :memoize
         end

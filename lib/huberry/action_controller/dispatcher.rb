@@ -10,12 +10,12 @@ module Huberry
       end
       
       def restore_default_host
-        ::ActionController::UrlRewriter.default_url_options[:host] = @original_default_host
+        ::ActionController::UrlWriter.default_url_options[:host] = ::ActionController::UrlWriter.default_url_options[:original_host]
       end
       
       def set_default_host
-        @original_default_host = ::ActionController::UrlRewriter.default_url_options[:host].to_s
-        ::ActionController::UrlRewriter.default_url_options[:host] = @request.forwarded_hosts.first unless @request.forwarded_hosts.empty?
+        ::ActionController::UrlWriter.default_url_options[:original_host] = ::ActionController::UrlWriter.default_url_options[:host]
+        ::ActionController::UrlWriter.default_url_options[:host] = @request.forwarded_hosts.first unless @request.forwarded_hosts.empty?
       end
       
       def set_session_domain

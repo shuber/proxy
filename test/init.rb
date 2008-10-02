@@ -17,6 +17,15 @@ require 'action_controller/session_management'
 require 'action_controller/test_process'
 require 'action_controller/url_rewriter'
 
+# Stub
+#
+module ActionController
+  def process; end
+  def process_cleanup; end
+  include SessionManagement
+end
+
+
 # Routing
 #
 class ActionController::Routing::RouteSet

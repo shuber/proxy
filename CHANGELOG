@@ -7,6 +7,8 @@
 	* Reordered requires and inclusions in proxy.rb
 	* Updated CHANGELOG
 	* Updated README
+	* Added UrlRewriter
+	* Added more tests
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Initial import
