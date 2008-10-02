@@ -10,11 +10,11 @@ module Huberry
       end
       
       def forwarded_hosts
-        env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s?/)
+        env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
       end
       
       def forwarded_uris
-        env[self.forwarded_uri_header_name].to_s.split(/,\s?/)
+        env[self.forwarded_uri_header_name].to_s.split(/,\s*/)
       end
     end
   end
