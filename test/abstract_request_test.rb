@@ -11,6 +11,16 @@ class AbstractRequestTest < Test::Unit::TestCase
     assert_equal [], @request.forwarded_hosts
   end
   
+  def test_should_parse_empty_forwarded_hosts_into_an_array
+    @request.env['HTTP_X_FORWARDED_HOST'] = ''
+    assert_equal [], @request.forwarded_hosts
+  end
+  
+  def test_should_parse_nil_forwarded_hosts_into_an_array
+    @request.env['HTTP_X_FORWARDED_HOST'] = nil
+    assert_equal [], @request.forwarded_hosts
+  end
+  
   def test_forwarded_host_string_should_be_parsed_into_an_array
     @request.env['HTTP_X_FORWARDED_HOST'] = 'forwarded.com'
     assert_equal ['forwarded.com'], @request.forwarded_hosts
@@ -22,6 +32,16 @@ class AbstractRequestTest < Test::Unit::TestCase
   end
   
   def test_forwarded_uris_should_be_empty
+    assert_equal [], @request.forwarded_uris
+  end
+  
+  def test_should_parse_empty_forwarded_uris_into_an_array
+    @request.env['HTTP_X_FORWARDED_URI'] = ''
+    assert_equal [], @request.forwarded_uris
+  end
+  
+  def test_should_parse_nil_forwarded_uris_into_an_array
+    @request.env['HTTP_X_FORWARDED_URI'] = nil
     assert_equal [], @request.forwarded_uris
   end
   

@@ -1,4 +1,7 @@
 2008-10-01 - Sean Huber (shuber@huberry.com)
+  * Added more AbstractRequest tests
+
+2008-10-01 - Sean Huber (shuber@huberry.com)
   * Added AbstractRequest tests and renamed BaseTest file
 
 2008-10-01 - Sean Huber (shuber@huberry.com)
