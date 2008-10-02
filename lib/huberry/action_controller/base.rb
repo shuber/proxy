@@ -21,12 +21,12 @@ module Huberry
           if self.class.proxy_relative_url_root.blank?
             yield
           else
-            self.class.original_relative_url_root = ::ActionController::Base.relative_url_root.to_s
-            ::ActionController::Base.relative_url_root = self.class.proxy_relative_url_root
+            self.class.original_relative_url_root = self.class.relative_url_root.to_s
+            self.class.relative_url_root = self.class.proxy_relative_url_root
             begin
               yield
             ensure
-              ::ActionController::Base.relative_url_root = self.class.original_relative_url_root
+              self.class.relative_url_root = self.class.original_relative_url_root
             end
           end
         end
