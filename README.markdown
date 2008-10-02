@@ -31,9 +31,7 @@ All the client has to do is proxy /neworders to http://client.example.com/orders
 
 Note: this plugin looks for a request header called 'HTTP\_X\_FORWARDED_URI' to detect the relative root url by default, but this can be overwritten like so:
 
-	class ApplicationController < ActionController::Base
-		self.forwarded_uri_variable_name = 'HTTP_X_FORWARDED_PATH'
-	end
+	ActionController::AbstractRequest.forwarded_uri_header_name = 'SOME_CUSTOM_HEADER_NAME'
 
 
 Relative Root Url Proxy Setup

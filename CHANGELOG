@@ -6,6 +6,7 @@
 	* Added more Base tests
 	* Reordered requires and inclusions in proxy.rb
 	* Updated CHANGELOG
+	* Updated README
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Initial import
