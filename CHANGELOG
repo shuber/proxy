@@ -1,4 +1,7 @@
 2008-10-01 - Sean Huber (shuber@huberry.com)
+  * Reordered requires and inclusions in proxy.rb
+
+2008-10-01 - Sean Huber (shuber@huberry.com)
   * Added more Base tests
 
 2008-10-01 - Sean Huber (shuber@huberry.com)
