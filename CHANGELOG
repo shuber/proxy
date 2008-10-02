@@ -1,45 +1,19 @@
 2008-10-01 - Sean Huber (shuber@huberry.com)
-  * Reordered requires and inclusions in proxy.rb
-
-2008-10-01 - Sean Huber (shuber@huberry.com)
-  * Added more Base tests
-
-2008-10-01 - Sean Huber (shuber@huberry.com)
-  * ActionController::Base will delegate relative_url_root to AbstractRequest if necessary to support older versions of actionpack
-
-2008-10-01 - Sean Huber (shuber@huberry.com)
-  * Added more AbstractRequest tests
-
-2008-10-01 - Sean Huber (shuber@huberry.com)
-  * Added AbstractRequest tests and renamed BaseTest file
-
-2008-10-01 - Sean Huber (shuber@huberry.com)
 	* Moved some forwarded host logic into AbstractRequest
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Fixed bug - Base was not setting the class relative_url_root correctly
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Regex to determine relative root url is now properly escaped
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* The HTTP_X_FORWARDED_URI variable name can be changed to something else
-	* Updated README
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Updated README
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Base can now parse a comma separated string of forwarded uris
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Updated Base tests
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Base automatically detects HTTP_X_FORWARDED_URI and determines relative_url_root (can be overwritten)
-
-2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Added some tests - still need to figure out how to test Dispatcher
+	* Added AbstractRequest tests and renamed BaseTest file
+	* Added more AbstractRequest tests
+	* ActionController::Base will delegate relative_url_root to AbstractRequest if necessary to support older versions of actionpack
+	* Added more Base tests
+	* Reordered requires and inclusions in proxy.rb
+	* Updated CHANGELOG
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Initial import
+	* Added some tests - still need to figure out how to test Dispatcher
+	* Base automatically detects HTTP_X_FORWARDED_URI and determines relative_url_root (can be overwritten)
+	* Updated Base tests
+	* Base can now parse a comma separated string of forwarded uris
+	* The HTTP_X_FORWARDED_URI variable name can be changed to something else
+	* Updated README
+	* Regex to determine relative root url is now properly escaped
+	* Fixed bug - Base was not setting the class relative_url_root correctly
