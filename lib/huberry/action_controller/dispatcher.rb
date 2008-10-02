@@ -15,11 +15,11 @@ module Huberry
       
       def set_default_host
         @original_default_host = ::ActionController::UrlRewriter.default_url_options[:host].to_s
-        ::ActionController::UrlRewriter.default_url_options[:host] = @request.env['HTTP_X_FORWARDED_HOST'].blank? ? @request.host.to_s : @request.env['HTTP_X_FORWARDED_HOST'].split(',').first
+        ::ActionController::UrlRewriter.default_url_options[:host] = @request.forwarded_hosts.first unless @request.forwarded_hosts.empty?
       end
       
       def set_session_domain
-        ::ActionController.session_options.merge!(:session_domain => ".#{$1}") if /([^\.]+\.[^\.]+)$/.match(::ActionController::UrlRewriter.default_url_options[:host])
+        ::ActionController.session_options.merge!(:session_domain => ".#{$1}") if /([^\.]+\.[^\.]+)$/.match(@request.forwarded_hosts.first || @request.host)
       end
     end
   end

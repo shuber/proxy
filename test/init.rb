@@ -30,10 +30,6 @@ end
 #
 require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'proxy')
 
-# Set a relative url root
-#
-ActionController::AbstractRequest.relative_url_root = '/app'
-
 # Test controller
 #
 class TestController < ActionController::Base

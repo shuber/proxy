@@ -1,3 +1,6 @@
+2008-10-01 - Sean Huber (shuber@huberry.com)
+	* Moved some forwarded host logic into AbstractRequest
+
 2008-09-29 - Sean Huber (shuber@huberry.com)
 	* Fixed bug - Base was not setting the class relative_url_root correctly
 
