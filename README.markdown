@@ -1,7 +1,7 @@
 Proxy
 =====
 
-A rails plugin that detects forwarded hosts/uris and sets the session domain, default host, and relative url root. Anything that uses the url_for method will generate urls using the forwarded headers.
+A rails plugin that detects requests with forwarded hosts/uris and sets the session domain, default host, and relative url root. Anything that uses the url_for method will generate urls using the forwarded headers.
 
 
 Installation
