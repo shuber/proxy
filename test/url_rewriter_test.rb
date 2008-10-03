@@ -17,7 +17,6 @@ class UrlRewriterTest < Test::Unit::TestCase
     @url_rewriter = UrlRewriter.new(@request, {})
     ActionController::UrlWriter.default_url_options[:host] = nil
     ActionController::Base.relative_url_root = nil
-    ActionController::Base.proxy_relative_url_root = nil
   end
   
   def test_should_rewrite_normal_action_with_request_host

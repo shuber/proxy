@@ -1,3 +1,6 @@
+2008-10-03 - Sean Huber (shuber@huberry.com)
+	* Added tests to ensure default host and relative_url_root are restored when an action redirects
+
 2008-10-02 - Sean Huber (shuber@huberry.com)
   * Removed Dispatcher and moved that logic into Base
   * Added Rakefile

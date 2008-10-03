@@ -7,7 +7,6 @@ class AbstractRequestTest < Test::Unit::TestCase
     @request.host = 'example.com'
     ActionController::UrlWriter.default_url_options[:host] = nil
     ActionController::Base.relative_url_root = nil
-    ActionController::Base.proxy_relative_url_root = nil
   end
   
   def test_forwarded_hosts_should_be_empty

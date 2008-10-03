@@ -40,6 +40,10 @@ class TestController < ActionController::Base
     render :text => url_for(:controller => 'test', :action => 'normal_action')
   end
   
+  def redirect_action
+    redirect_to :action => 'normal_action'
+  end
+  
   protected
   
     def rescue_action(e)
@@ -52,4 +56,5 @@ end
 ActionController::Routing::Routes.append do |map|
   map.connect 'exception_action', :controller => 'test', :action => 'exception_action'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
+  map.connect 'redirect_action', :controller => 'test', :action => 'redirect_action'
 end

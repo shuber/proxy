@@ -9,7 +9,6 @@ class BaseTest < Test::Unit::TestCase
     @request.host = 'example.com'
     ActionController::UrlWriter.default_url_options[:host] = nil
     ActionController::Base.relative_url_root = '/app'
-    ActionController::Base.proxy_relative_url_root = nil
   end
   
   def test_should_get_normal_action
@@ -48,6 +47,13 @@ class BaseTest < Test::Unit::TestCase
     assert_equal 'some-other-domain.com', ::ActionController::UrlWriter.default_url_options[:host]
   end
   
+  def test_should_restore_original_host_if_redirected
+    ::ActionController::UrlWriter.default_url_options[:host] = 'some-other-domain.com'
+    add_forwarded_host_headers
+    get :redirect_action
+    assert_equal 'some-other-domain.com', ::ActionController::UrlWriter.default_url_options[:host]
+  end
+  
   def test_should_get_normal_action
     get :normal_action
     assert_equal "http://#{@request.host}/app/normal_action", @response.body
@@ -75,6 +81,12 @@ class BaseTest < Test::Unit::TestCase
   def test_should_restore_relative_url_root_if_exception_is_raised
     add_forwarded_uri_headers
     assert_raises(RuntimeError) { get :exception_action }
+    assert_equal '/app', ActionController::Base.relative_url_root
+  end
+  
+  def test_should_restore_relative_url_root_if_exception_is_raised
+    add_forwarded_uri_headers
+    get :redirect_action
     assert_equal '/app', ActionController::Base.relative_url_root
   end
   
