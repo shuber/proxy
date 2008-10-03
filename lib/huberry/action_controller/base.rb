@@ -9,14 +9,14 @@ module Huberry
           around_filter :swap_relative_url_root
           mattr_accessor :original_relative_url_root
           mattr_accessor :proxy_relative_url_root
-          class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless respond_to? :relative_url_root; end
+          class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to? :relative_url_root; end
         end
       end
 
       protected
       
         def set_proxy_relative_url_root
-          ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '') unless request.forwarded_uris.empty?
+          ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.empty? ? nil : request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '')
         end
         
         def set_session_domain
@@ -35,7 +35,7 @@ module Huberry
         
         def swap_relative_url_root
           ::ActionController::Base.original_relative_url_root = ::ActionController::Base.relative_url_root
-          ::ActionController::Base.relative_url_root = ::ActionController::Base.proxy_relative_url_root unless ::ActionController::Base.proxy_relative_url_root.blank?
+          ::ActionController::Base.relative_url_root = ::ActionController::Base.proxy_relative_url_root unless ::ActionController::Base.proxy_relative_url_root.nil?
           begin
             yield
           ensure
