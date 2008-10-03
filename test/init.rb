@@ -44,6 +44,10 @@ class TestController < ActionController::Base
     redirect_to :action => 'normal_action'
   end
   
+  def session_action
+    render :text => ActionController::Base.session_options[:session_domain]
+  end
+  
   protected
   
     def rescue_action(e)
@@ -57,4 +61,5 @@ ActionController::Routing::Routes.append do |map|
   map.connect 'exception_action', :controller => 'test', :action => 'exception_action'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
   map.connect 'redirect_action', :controller => 'test', :action => 'redirect_action'
+  map.connect 'session_action', :controller => 'test', :action => 'session_action'
 end

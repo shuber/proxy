@@ -3,10 +3,10 @@ module Huberry
     module Base
       def self.included(base)
         base.class_eval do
-          before_filter :set_session_domain
           before_filter :set_proxy_relative_url_root
           around_filter :swap_default_host
           around_filter :swap_relative_url_root
+          around_filter :swap_session_domain
           mattr_accessor :original_relative_url_root
           mattr_accessor :proxy_relative_url_root
           class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to? :relative_url_root; end
@@ -17,10 +17,6 @@ module Huberry
       
         def set_proxy_relative_url_root
           ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.empty? ? nil : request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '')
-        end
-        
-        def set_session_domain
-          ::ActionController::Base.session_options.merge!(:session_domain => ".#{$1}") if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first || request.host)
         end
         
         def swap_default_host
@@ -40,6 +36,16 @@ module Huberry
             yield
           ensure
             ::ActionController::Base.relative_url_root = ::ActionController::Base.original_relative_url_root
+          end
+        end
+        
+        def swap_session_domain
+          ::ActionController::Base.session_options[:original_session_domain] = ::ActionController::Base.session_options[:session_domain]
+          ::ActionController::Base.session_options[:session_domain] = ".#{$1}" if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first.to_s)
+          begin
+            yield
+          ensure
+            ::ActionController::Base.session_options[:session_domain] = ::ActionController::Base.session_options[:original_session_domain]
           end
         end
     end

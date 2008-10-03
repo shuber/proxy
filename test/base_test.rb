@@ -29,15 +29,32 @@ class BaseTest < Test::Unit::TestCase
     assert_equal "http://domain.com/app/normal_action", @response.body
   end
   
-  def test_should_set_the_session_domain
-    get :normal_action
-    assert_equal ".#{@request.host}", ::ActionController::Base.session_options[:session_domain]
-  end
-  
   def test_should_set_the_session_domain_with_a_forwarded_host
     add_forwarded_host_headers
-    get :normal_action
-    assert_equal '.domain.com', ::ActionController::Base.session_options[:session_domain]
+    get :session_action
+    assert_equal '.domain.com', @response.body
+  end
+  
+  def test_should_restore_original_session_domain
+    ::ActionController::Base.session_options[:session_domain] = '.example.com'
+    add_forwarded_host_headers
+    get :session_action
+    assert_equal '.domain.com', @response.body
+    assert_equal '.example.com', ::ActionController::Base.session_options[:session_domain]
+  end
+  
+  def test_should_restore_original_session_if_exception_is_raised
+    ::ActionController::Base.session_options[:session_domain] = '.example.com'
+    add_forwarded_host_headers
+    assert_raises(RuntimeError) { get :exception_action }
+    assert_equal '.example.com', ::ActionController::Base.session_options[:session_domain]
+  end
+  
+  def test_should_restore_original_session_if_redirected
+    ::ActionController::Base.session_options[:session_domain] = '.example.com'
+    add_forwarded_host_headers
+    get :redirect_action
+    assert_equal '.example.com', ::ActionController::Base.session_options[:session_domain]
   end
   
   def test_should_restore_original_host_if_exception_is_raised
