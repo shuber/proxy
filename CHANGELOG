@@ -3,6 +3,7 @@
 	* Named routes now work with forwarded hosts
 	* ActionView::Base#url_for uses forwarded hosts correctly
 	* Updated README
+	* Updated init.rb
 
 2008-10-03 - Sean Huber (shuber@huberry.com)
 	* Added tests to ensure default host and relative_url_root are restored when an action redirects
