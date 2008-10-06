@@ -1,5 +1,6 @@
 2008-10-05 - Sean Huber (shuber@huberry.com)
 	* Added failing named route test
+	* Named routes now work with forwarded hosts
 
 2008-10-03 - Sean Huber (shuber@huberry.com)
 	* Added tests to ensure default host and relative_url_root are restored when an action redirects
