@@ -15,6 +15,7 @@ require 'action_controller/routing'
 require 'action_controller/session_management'
 require 'action_controller/test_process'
 require 'action_controller/url_rewriter'
+require 'action_view'
 
 # Routing
 #
@@ -52,6 +53,10 @@ class TestController < ActionController::Base
     render :text => ActionController::Base.session_options[:session_domain]
   end
   
+  def view_action
+    render :inline => '<%= normal_action_url %>, <%= url_for(:controller => "test", :action => "normal_action") %>, <%= url_for(:controller => "test", :action => "normal_action", :only_path => true) %>'
+  end
+  
   protected
   
     def rescue_action(e)
@@ -67,5 +72,6 @@ ActionController::Routing::Routes.append do |map|
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
   map.connect 'redirect_action', :controller => 'test', :action => 'redirect_action'
   map.connect 'session_action', :controller => 'test', :action => 'session_action'
+  map.connect 'view_action', :controller => 'test', :action => 'view_action'
   map.normal_action 'normal_action', :controller => 'test', :action => 'normal_action'
 end
