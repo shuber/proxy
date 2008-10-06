@@ -41,6 +41,12 @@ class BaseTest < Test::Unit::TestCase
     assert_equal "http://domain.com/app/normal_action, http://domain.com/app/normal_action, /app/normal_action", @response.body
   end
   
+  def test_asset_tag_helpers_should_not_use_forwarded_host
+    add_forwarded_host_headers
+    get :asset_action
+    assert_nil(/domain\.com/.match(@response.body))
+  end
+  
   def test_should_set_the_session_domain_with_a_forwarded_host
     add_forwarded_host_headers
     get :session_action
@@ -131,6 +137,15 @@ class BaseTest < Test::Unit::TestCase
     @request.env['PATH_INFO'] = '/view_action'
     get :view_action
     assert_equal "http://example.com/test/ing/normal_action, /test/ing/normal_action, /test/ing/normal_action", @response.body
+  end
+  
+  def test_asset_tag_helpers_should_use_forwarded_uri
+    @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/asset_action'
+    @request.env['PATH_INFO'] = '/asset_action'
+    get :asset_action
+    assert !@response.body.scan(/img[^>]+src\="\/test\/ing\/images\/test\.gif"/).empty?
+    assert !@response.body.scan(/script[^>]+src\="\/test\/ing\/javascripts\/test\.js"/).empty?
+    assert !@response.body.scan(/link[^>]+href\="\/test\/ing\/stylesheets\/test\.css"/).empty?
   end
   
   protected

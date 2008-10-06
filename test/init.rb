@@ -33,6 +33,10 @@ require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'proxy')
 # Test controller
 #
 class TestController < ActionController::Base
+  def asset_action
+    render :inline => '<%= image_tag "test.gif" %>, <%= javascript_include_tag "test" %>, <%= stylesheet_link_tag "test" %>'
+  end
+  
   def exception_action
     raise 'Uh oh'
   end
@@ -67,6 +71,7 @@ end
 # Test routes
 #
 ActionController::Routing::Routes.append do |map|
+  map.connect 'asset_action', :controller => 'test', :action => 'asset_action'
   map.connect 'exception_action', :controller => 'test', :action => 'exception_action'
   map.connect 'named_route_action', :controller => 'test', :action => 'named_route_action'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
