@@ -22,6 +22,12 @@ class BaseTest < Test::Unit::TestCase
     assert_equal "http://domain.com/app/normal_action", @response.body
   end
   
+  def test_should_set_forwarded_host_in_a_named_route
+    add_forwarded_host_headers
+    get :named_route_action
+    assert_equal "http://domain.com/app/normal_action", @response.body
+  end
+  
   def test_should_restore_the_original_default_host
     ::ActionController::UrlWriter.default_url_options[:host] = 'some-other-domain.com'
     add_forwarded_host_headers
@@ -87,6 +93,13 @@ class BaseTest < Test::Unit::TestCase
     add_forwarded_uri_headers
     get :normal_action
     assert_equal '/test/ing', ActionController::Base.proxy_relative_url_root
+  end
+  
+  def test_should_set_proxy_relative_url_root_in_a_named_route
+    @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/named_route_action'
+    @request.env['PATH_INFO'] = '/named_route_action'
+    get :named_route_action
+    assert_equal "http://#{@request.host}/test/ing/normal_action", @response.body
   end
   
   def test_should_set_original_relative_url_root

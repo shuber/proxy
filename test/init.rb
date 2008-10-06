@@ -36,6 +36,10 @@ class TestController < ActionController::Base
     raise 'Uh oh'
   end
 
+  def named_route_action
+    render :text => normal_action_url
+  end
+
   def normal_action
     render :text => url_for(:controller => 'test', :action => 'normal_action')
   end
@@ -59,7 +63,9 @@ end
 #
 ActionController::Routing::Routes.append do |map|
   map.connect 'exception_action', :controller => 'test', :action => 'exception_action'
+  map.connect 'named_route_action', :controller => 'test', :action => 'named_route_action'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
   map.connect 'redirect_action', :controller => 'test', :action => 'redirect_action'
   map.connect 'session_action', :controller => 'test', :action => 'session_action'
+  map.normal_action 'normal_action', :controller => 'test', :action => 'normal_action'
 end
