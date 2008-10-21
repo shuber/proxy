@@ -7,7 +7,7 @@ module Huberry
       
       # We have to pass the :host option or url_for assumes you only want the path
       def url_for_with_proxy(options = {})
-        options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] unless ::ActionController::UrlWriter.default_url_options[:host].blank?
+        options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] if options.is_a?(Hash) && !::ActionController::UrlWriter.default_url_options[:host].blank?
         url_for_without_proxy(options)
       end
     end

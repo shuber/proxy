@@ -1,3 +1,6 @@
+2008-10-21 - Sean Huber (shuber@huberry.com)
+	* Fix bug - only add the :host option to url_helper if options is a Hash
+
 2008-10-06 - Sean Huber (shuber@huberry.com)
 	* Add tests to ensure asset helpers work correctly
 
