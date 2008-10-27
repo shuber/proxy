@@ -1,3 +1,6 @@
+2008-10-27 - Sean Huber (shuber@einsteinindustries.com)
+	* Moved the logic that calculates the proxy_relative_url_root into its own method
+
 2008-10-27 - Sean Huber (shuber@huberry.com)
 	* rewrite_url also adds the :host option as options is a Hash
 

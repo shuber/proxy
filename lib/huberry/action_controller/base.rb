@@ -15,8 +15,12 @@ module Huberry
 
       protected
       
+        def parse_proxy_relative_url_root
+          request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '')
+        end
+      
         def set_proxy_relative_url_root
-          ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.empty? ? nil : request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '')
+          ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.empty? ? nil : parse_proxy_relative_url_root
         end
         
         def swap_default_host
