@@ -1,3 +1,6 @@
+2008-10-27 - Sean Huber (shuber@huberry.com)
+	* rewrite_url also adds the :host option as options is a Hash
+
 2008-10-21 - Sean Huber (shuber@huberry.com)
 	* Fix bug - only add the :host option to url_helper if options is a Hash
 

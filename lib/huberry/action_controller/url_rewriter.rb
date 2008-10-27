@@ -6,7 +6,7 @@ module Huberry
       end
       
       def rewrite_url_with_proxy(options)
-        options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] unless ::ActionController::UrlWriter.default_url_options[:host].blank?
+        options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] if options.is_a?(Hash) && !::ActionController::UrlWriter.default_url_options[:host].blank?
         rewrite_url_without_proxy(options)
       end
     end
