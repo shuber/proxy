@@ -59,7 +59,7 @@ module Huberry
         # Sets the <tt>default_url_options[:host]</tt> to the first forwarded host if there are any
         #
         # The original default host is restored after each request and can be accessed by calling
-        #   ActionController::UrlWriter.default_url_options[:original_host]
+        #   <tt>ActionController::UrlWriter.default_url_options[:original_host]</tt>
         def swap_default_host
           ::ActionController::UrlWriter.default_url_options[:original_host] = ::ActionController::UrlWriter.default_url_options[:host]
           ::ActionController::UrlWriter.default_url_options[:host] = request.forwarded_hosts.first unless request.forwarded_hosts.empty?
@@ -73,7 +73,7 @@ module Huberry
         # Sets the <tt>relative_url_root</tt> to the <tt>proxy_relative_url_root</tt> unless it's nil
         #
         # The original relative url root is restored after each request and can be accessed by calling
-        #   ActionController::Base.original_relative_url_root
+        #   <tt>ActionController::Base.original_relative_url_root</tt>
         def swap_relative_url_root
           ::ActionController::Base.original_relative_url_root = ::ActionController::Base.relative_url_root
           ::ActionController::Base.relative_url_root = ::ActionController::Base.proxy_relative_url_root unless ::ActionController::Base.proxy_relative_url_root.nil?
@@ -88,7 +88,7 @@ module Huberry
         # unless there aren't any forwarded hosts
         #
         # The original session domain is restored after each request and can be accessed by calling
-        #   ActionController::Base.session_options[:original_session_domain]
+        #   <tt>ActionController::Base.session_options[:original_session_domain]</tt>
         def swap_session_domain
           ::ActionController::Base.session_options[:original_session_domain] = ::ActionController::Base.session_options[:session_domain]
           ::ActionController::Base.session_options[:session_domain] = parse_session_domain unless request.forwarded_hosts.empty?

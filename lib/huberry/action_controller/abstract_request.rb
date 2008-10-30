@@ -9,12 +9,30 @@ module Huberry
         end
       end
       
-      # Parses and returns an array of forwarded hosts
+      # Parses the forwarded host header and returns an array of forwarded hosts
+      #
+      # For example:
+      #
+      #   If the HTTP_X_FORWARDED_HOST header was set to 
+      #     'some-domain.com, some-other-domain.com, and-another-domain.com'
+      #
+      # This method would return ['some-domain.com', 'some-other-domain.com', 'and-another-domain.com']
+      #
+      # Returns an empty array if there aren't any forwarded hosts
       def forwarded_hosts
         env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
       end
       
-      # Parses and returns an array of forwarded uris
+      # Parses the forwarded uri header and returns an array of forwarded uris
+      #
+      # For example:
+      #
+      #   If the HTTP_X_FORWARDED_URI header was set to 
+      #     '/some/path, /some/other/path, /and/another/path'
+      #
+      # This method would return ['/some/path, '/some/other/path', '/and/another/path']
+      #
+      # Returns an empty array if there aren't any forwarded uris
       def forwarded_uris
         env[self.forwarded_uri_header_name].to_s.split(/,\s*/)
       end
