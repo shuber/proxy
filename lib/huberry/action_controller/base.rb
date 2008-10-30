@@ -15,14 +15,51 @@ module Huberry
 
       protected
       
+        # Calculates the <tt>relative_url_root</tt> by parsing the request path out of the
+        # first forwarded uri
+        #
+        # For example:
+        #
+        #   http://example.com/manage/videos/new
+        #     gets proxied to
+        #   http://your-domain.com/videos/new
+        #
+        # The first forwarded uri would be: /manage/videos/new
+        # and the request path would be:    /videos/new
+        #
+        # So this method would return: /manage
         def parse_proxy_relative_url_root
           request.forwarded_uris.first.gsub(/#{Regexp.escape(request.path)}$/, '')
         end
+        
+        # Calculates the <tt>session_domain</tt> by parsing the first domain.tld out of the
+        # first forwarded host and prepending a '.'
+        #
+        # For example:
+        #
+        #   http://example.com/manage/videos/new
+        #   http://some.other-domain.com/videos/new
+        #     both get proxied to
+        #   http://your-domain.com/videos/new
+        #
+        # The resulting session domain for the first url would be: '.example.com'
+        # The resulting session domain for the second url would be: '.other-domain.com'
+        def parse_session_domain
+          ".#{$1}" if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first)
+        end
       
+        # Sets the <tt>proxy_relative_url_root</tt> using the +parse_proxy_relative_url_root+ method
+        # to calculate it
+        #
+        # Sets the <tt>proxy_relative_url_root</tt> to nil if there aren't any forwarded uris
         def set_proxy_relative_url_root
           ::ActionController::Base.proxy_relative_url_root = request.forwarded_uris.empty? ? nil : parse_proxy_relative_url_root
         end
         
+        # Sets the <tt>default_url_options[:host]</tt> to the first forwarded host if there are any
+        #
+        # The original default host is restored after each request and can be accessed by calling
+        #   ActionController::UrlWriter.default_url_options[:original_host]
         def swap_default_host
           ::ActionController::UrlWriter.default_url_options[:original_host] = ::ActionController::UrlWriter.default_url_options[:host]
           ::ActionController::UrlWriter.default_url_options[:host] = request.forwarded_hosts.first unless request.forwarded_hosts.empty?
@@ -33,6 +70,10 @@ module Huberry
           end
         end
         
+        # Sets the <tt>relative_url_root</tt> to the <tt>proxy_relative_url_root</tt> unless it's nil
+        #
+        # The original relative url root is restored after each request and can be accessed by calling
+        #   ActionController::Base.original_relative_url_root
         def swap_relative_url_root
           ::ActionController::Base.original_relative_url_root = ::ActionController::Base.relative_url_root
           ::ActionController::Base.relative_url_root = ::ActionController::Base.proxy_relative_url_root unless ::ActionController::Base.proxy_relative_url_root.nil?
@@ -43,9 +84,14 @@ module Huberry
           end
         end
         
+        # Sets the <tt>session_options[:session_domain]</tt> to the result of the +parse_session_domain+ method
+        # unless there aren't any forwarded hosts
+        #
+        # The original session domain is restored after each request and can be accessed by calling
+        #   ActionController::Base.session_options[:original_session_domain]
         def swap_session_domain
           ::ActionController::Base.session_options[:original_session_domain] = ::ActionController::Base.session_options[:session_domain]
-          ::ActionController::Base.session_options[:session_domain] = ".#{$1}" if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first.to_s)
+          ::ActionController::Base.session_options[:session_domain] = parse_session_domain unless request.forwarded_hosts.empty?
           begin
             yield
           ensure

@@ -1,55 +1,58 @@
-2008-10-27 - Sean Huber (shuber@einsteinindustries.com)
-	* Moved the logic that calculates the proxy_relative_url_root into its own method
+2008-10-30 - Sean Huber (shuber@huberry.com)
+  * Move the logic that calculates the session_domain into its own method and update documentation
 
 2008-10-27 - Sean Huber (shuber@huberry.com)
-	* rewrite_url also adds the :host option as options is a Hash
+  * Move the logic that calculates the proxy_relative_url_root into its own method
+
+2008-10-27 - Sean Huber (shuber@huberry.com)
+  * rewrite_url also adds the :host option as options is a Hash
 
 2008-10-21 - Sean Huber (shuber@huberry.com)
-	* Fix bug - only add the :host option to url_helper if options is a Hash
+  * Fix bug - only add the :host option to url_helper if options is a Hash
 
 2008-10-06 - Sean Huber (shuber@huberry.com)
-	* Add tests to ensure asset helpers work correctly
+  * Add tests to ensure asset helpers work correctly
 
 2008-10-05 - Sean Huber (shuber@huberry.com)
-	* Add failing named route test
-	* Named routes now work with forwarded hosts
-	* ActionView::Base#url_for uses forwarded hosts correctly
-	* Update README
-	* Update init.rb
+  * Add failing named route test
+  * Named routes now work with forwarded hosts
+  * ActionView::Base#url_for uses forwarded hosts correctly
+  * Update README
+  * Update init.rb
 
 2008-10-03 - Sean Huber (shuber@huberry.com)
-	* Add tests to ensure default host and relative_url_root are restored when an action redirects
-	* Update README
-	* The original session_domain is now restored after each request
+  * Add tests to ensure default host and relative_url_root are restored when an action redirects
+  * Update README
+  * The original session_domain is now restored after each request
 
 2008-10-02 - Sean Huber (shuber@huberry.com)
   * Remove Dispatcher and moved that logic into Base
   * Add Rakefile
-	* Fix bug - referred to ActionController instead of ActionController::Base
-	* Fix bug - plugin was not being loaded properly
-	* Update README
-	* Fix bug - proxy_relative_url_root was not being set on every request
-	* Fix bug - relative_url_root was always being delegated to ActionController::AbstractRequest
+  * Fix bug - referred to ActionController instead of ActionController::Base
+  * Fix bug - plugin was not being loaded properly
+  * Update README
+  * Fix bug - proxy_relative_url_root was not being set on every request
+  * Fix bug - relative_url_root was always being delegated to ActionController::AbstractRequest
 
 2008-10-01 - Sean Huber (shuber@huberry.com)
-	* Move some forwarded host logic into AbstractRequest
-	* Add AbstractRequest tests and renamed BaseTest file
-	* Add more AbstractRequest tests
-	* ActionController::Base will delegate relative_url_root to AbstractRequest if necessary to support older versions of actionpack
-	* Add more Base tests
-	* Reorder requires and inclusions in proxy.rb
-	* Update CHANGELOG
-	* Update README
-	* Add UrlRewriter
-	* Add more tests
+  * Move some forwarded host logic into AbstractRequest
+  * Add AbstractRequest tests and renamed BaseTest file
+  * Add more AbstractRequest tests
+  * ActionController::Base will delegate relative_url_root to AbstractRequest if necessary to support older versions of actionpack
+  * Add more Base tests
+  * Reorder requires and inclusions in proxy.rb
+  * Update CHANGELOG
+  * Update README
+  * Add UrlRewriter
+  * Add more tests
 
 2008-09-29 - Sean Huber (shuber@huberry.com)
-	* Initial import
-	* Add some tests - still need to figure out how to test Dispatcher
-	* Base automatically detects HTTP_X_FORWARDED_URI and determines relative_url_root (can be overwritten)
-	* Update Base tests
-	* Base can now parse a comma separated string of forwarded uris
-	* The HTTP_X_FORWARDED_URI variable name can be changed to something else
-	* Update README
-	* Regex to determine relative root url is now properly escaped
-	* Fix bug - Base was not setting the class relative_url_root correctly
+  * Initial import
+  * Add some tests - still need to figure out how to test Dispatcher
+  * Base automatically detects HTTP_X_FORWARDED_URI and determines relative_url_root (can be overwritten)
+  * Update Base tests
+  * Base can now parse a comma separated string of forwarded uris
+  * The HTTP_X_FORWARDED_URI variable name can be changed to something else
+  * Update README
+  * Regex to determine relative root url is now properly escaped
+  * Fix bug - Base was not setting the class relative_url_root correctly

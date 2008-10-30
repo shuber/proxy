@@ -9,10 +9,12 @@ module Huberry
         end
       end
       
+      # Parses and returns an array of forwarded hosts
       def forwarded_hosts
         env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
       end
       
+      # Parses and returns an array of forwarded uris
       def forwarded_uris
         env[self.forwarded_uri_header_name].to_s.split(/,\s*/)
       end

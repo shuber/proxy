@@ -5,7 +5,7 @@ module Huberry
         base.class_eval { alias_method_chain :define_url_helper, :proxy }
       end
       
-      # Named route helpers don't seem to work correctly with forwarded hosts unless we specifically set
+      # Named route helpers don't seem to work correctly with forwarded hosts unless we explicitly set
       #   :only_path => false
       def define_url_helper_with_proxy(route, name, kind, options)
         define_url_helper_without_proxy(route, name, kind, options)
