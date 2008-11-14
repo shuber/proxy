@@ -1,23 +1,16 @@
-2008-11-14 - Sean Huber (shuber@einsteinindustries.com)
-  * Gemify
-
 2008-11-14 - Sean Huber (shuber@huberry.com)
   * Fix bug - "redirect_to some_path" now uses a forwarded host if it exists
-
-2008-10-30 - Sean Huber (shuber@huberry.com)
+  * Gemify
   * Update README
 
 2008-10-30 - Sean Huber (shuber@huberry.com)
   * Update documentation
-
-2008-10-30 - Sean Huber (shuber@huberry.com)
   * Move the logic that calculates the session_domain into its own method and update documentation
-
-2008-10-27 - Sean Huber (shuber@huberry.com)
-  * Move the logic that calculates the proxy_relative_url_root into its own method
+  * Update README
 
 2008-10-27 - Sean Huber (shuber@huberry.com)
   * rewrite_url also adds the :host option as options is a Hash
+  * Move the logic that calculates the proxy_relative_url_root into its own method
 
 2008-10-21 - Sean Huber (shuber@huberry.com)
   * Fix bug - only add the :host option to url_helper if options is a Hash

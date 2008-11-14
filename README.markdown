@@ -1,7 +1,7 @@
 Proxy
 =====
 
-A rails plugin that allows applications to dynamically respond to proxied requests by detecting forwarded host/uri headers and setting the session domain, default host, and relative url root. The plugin adds this functionality to calls to url_for, named route helpers, and view url helpers while still allowing you to specifically set the :host and :only\_path options to override this behavior.
+A gem/plugin that allows rails applications to dynamically respond to proxied requests by detecting forwarded host/uri headers and setting the session domain, default host, and relative url root. The plugin adds this functionality to calls to url_for, named route helpers, and view url helpers while still allowing you to specifically set the :host and :only\_path options to override this behavior.
 
 The original session domain, default host, and relative url root will be restored after each request.
 
@@ -10,6 +10,8 @@ Installation
 ------------
 
 	script/plugin install git://github.com/shuber/proxy.git
+	OR
+	gem install shuber-proxy --source http://gems.github.com
 
 
 Usage
