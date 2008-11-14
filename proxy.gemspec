@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.email    = 'shuber@huberry.com'
   s.homepage = 'http://github.com/shuber/proxy'
   
-  s.has_rdoc = true
-  s.rdoc_options = ['--line-numbers', '--inline-source']
+  s.has_rdoc = false
+  s.rdoc_options = ['--line-numbers', '--inline-source', '--main', 'README.markdown']
   
   s.require_paths = ['lib']
   

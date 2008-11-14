@@ -2,6 +2,7 @@
   * Fix bug - "redirect_to some_path" now uses a forwarded host if it exists
   * Gemify
   * Update README
+  * Update proxy.gemspec
 
 2008-10-30 - Sean Huber (shuber@huberry.com)
   * Update documentation
