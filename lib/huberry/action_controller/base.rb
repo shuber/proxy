@@ -10,6 +10,7 @@ module Huberry
           cattr_accessor :original_relative_url_root
           cattr_accessor :proxy_relative_url_root
           class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to? :relative_url_root; end
+          alias_method_chain :redirect_to, :proxy
         end
       end
 
@@ -46,6 +47,22 @@ module Huberry
         # The resulting session domain for the second url would be: '.other-domain.com'
         def parse_session_domain
           ".#{$1}" if /([^\.]+\.[^\.]+)$/.match(request.forwarded_hosts.first)
+        end
+        
+        # Forces redirects to use the <tt>default_url_options[:host]</tt> if it exists unless a host
+        # is already set
+        #
+        # For example:
+        #
+        #   http://example.com
+        #     gets proxied to
+        #   http://your-domain.com
+        #
+        # If you have an action that calls <tt>redirect_to new_videos_path</tt>, the example.com domain
+        # would be used instead of your-domain.com
+        def redirect_to_with_proxy(*args)
+          args[0] = request.protocol + ::ActionController::UrlWriter.default_url_options[:host] + args.first if args.first.is_a?(String) && !%r{^\w+://.*}.match(args.first) && !::ActionController::UrlWriter.default_url_options[:host].blank?
+          redirect_to_without_proxy(*args)
         end
       
         # Sets the <tt>proxy_relative_url_root</tt> using the +parse_proxy_relative_url_root+ method

@@ -38,7 +38,7 @@ class BaseTest < Test::Unit::TestCase
   def test_url_generators_in_views_should_use_forwarded_host
     add_forwarded_host_headers
     get :view_action
-    assert_equal "http://domain.com/app/normal_action, http://domain.com/app/normal_action, /app/normal_action", @response.body
+    assert_equal "/app/normal_action, http://domain.com/app/normal_action, http://domain.com/app/normal_action, /app/normal_action", @response.body
   end
   
   def test_asset_tag_helpers_should_not_use_forwarded_host
@@ -136,7 +136,7 @@ class BaseTest < Test::Unit::TestCase
     @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/view_action'
     @request.env['PATH_INFO'] = '/view_action'
     get :view_action
-    assert_equal "http://example.com/test/ing/normal_action, /test/ing/normal_action, /test/ing/normal_action", @response.body
+    assert_equal "/test/ing/normal_action, http://example.com/test/ing/normal_action, /test/ing/normal_action, /test/ing/normal_action", @response.body
   end
   
   def test_asset_tag_helpers_should_use_forwarded_uri
@@ -146,6 +146,18 @@ class BaseTest < Test::Unit::TestCase
     assert !@response.body.scan(/img[^>]+src\="\/test\/ing\/images\/test\.gif"/).empty?
     assert !@response.body.scan(/script[^>]+src\="\/test\/ing\/javascripts\/test\.js"/).empty?
     assert !@response.body.scan(/link[^>]+href\="\/test\/ing\/stylesheets\/test\.css"/).empty?
+  end
+  
+  def test_should_use_forwarded_host_in_a_redirect
+    add_forwarded_host_headers
+    get :redirect_action
+    assert_redirected_to 'http://domain.com/app/normal_action'
+  end
+  
+  def test_should_use_forwarded_host_in_a_redirect_with_named_routes
+    add_forwarded_host_headers
+    get :redirect_with_named_route_action
+    assert_redirected_to 'http://domain.com/app/normal_action'
   end
   
   protected

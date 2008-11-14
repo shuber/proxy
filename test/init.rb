@@ -53,12 +53,16 @@ class TestController < ActionController::Base
     redirect_to :action => 'normal_action'
   end
   
+  def redirect_with_named_route_action
+    redirect_to normal_action_path
+  end
+  
   def session_action
     render :text => ActionController::Base.session_options[:session_domain]
   end
   
   def view_action
-    render :inline => '<%= normal_action_url %>, <%= url_for(:controller => "test", :action => "normal_action") %>, <%= url_for(:controller => "test", :action => "normal_action", :only_path => true) %>'
+    render :inline => '<%= normal_action_path %>, <%= normal_action_url %>, <%= url_for(:controller => "test", :action => "normal_action") %>, <%= url_for(:controller => "test", :action => "normal_action", :only_path => true) %>'
   end
   
   protected
@@ -76,6 +80,7 @@ ActionController::Routing::Routes.append do |map|
   map.connect 'named_route_action', :controller => 'test', :action => 'named_route_action'
   map.connect 'normal_action', :controller => 'test', :action => 'normal_action'
   map.connect 'redirect_action', :controller => 'test', :action => 'redirect_action'
+  map.connect 'redirect_with_named_route_action', :controller => 'test', :action => 'redirect_with_named_route_action'
   map.connect 'session_action', :controller => 'test', :action => 'session_action'
   map.connect 'view_action', :controller => 'test', :action => 'view_action'
   map.normal_action 'normal_action', :controller => 'test', :action => 'normal_action'
