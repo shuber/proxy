@@ -1,3 +1,6 @@
+2008-12-08 - Sean Huber (shuber@huberry.com)
+  * Fix bug - lib/proxy.rb was not included in gemspec
+
 2008-11-14 - Sean Huber (shuber@huberry.com)
   * Fix bug - "redirect_to some_path" now uses a forwarded host if it exists
   * Gemify

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.2.0'
+  s.version = '1.2.1'
   s.date    = '2008-11-14'
   
   s.summary     = 'A gem/plugin that allows rails applications to dynamically respond to proxied requests'
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
     lib/huberry/action_controller/named_route_collection.rb
     lib/huberry/action_controller/url_rewriter.rb
     lib/huberry/action_view/url_helper.rb
-    lib/huberry/proxy.rb
+    lib/proxy.rb
     MIT-LICENSE
     Rakefile
     README.markdown
