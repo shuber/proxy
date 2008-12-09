@@ -1,3 +1,6 @@
+2008-12-09 - Sean Huber (shuber@huberry.com)
+  * Update README
+
 2008-12-08 - Sean Huber (shuber@huberry.com)
   * Fix bug - lib/proxy.rb was not included in gemspec
 
