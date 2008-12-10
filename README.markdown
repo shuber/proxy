@@ -33,7 +33,7 @@ Now imagine the client had an existing ordering system already running at /order
 
 All the client has to do is proxy /neworders to http://client.example.com/orders and this plugin will automatically detect the forwarded request uri and set the relative url root for your application accordingly. Now whenever urls are generated, they will correctly use /neworders as the relative url root instead of /orders.
 
-Note: this plugin looks for a request header called 'HTTP\_X\_FORWARDED_URI' to detect the relative root url by default, but this can be overwritten like so:
+Note: this plugin looks for a request header called 'HTTP\_X\_FORWARDED\_URI' to detect the relative root url by default, but this can be overwritten like so:
 
 	ActionController::AbstractRequest.forwarded_uri_header_name = 'SOME_CUSTOM_HEADER_NAME'
 
