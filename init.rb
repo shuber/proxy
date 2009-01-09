@@ -1,1 +1,1 @@
-require_dependency File.dirname(__FILE__) + '/lib/proxy'
+require_dependency 'proxy'

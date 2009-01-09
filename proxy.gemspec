@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.2.1'
-  s.date    = '2008-11-14'
+  s.version = '1.2.2'
+  s.date    = '2009-01-08'
   
   s.summary     = 'A gem/plugin that allows rails applications to dynamically respond to proxied requests'
   s.description = 'A gem/plugin that allows rails applications to dynamically respond to proxied requests by detecting forwarded host/uri headers and setting the session domain, default host, and relative url root'
@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
   s.files = %w(
     CHANGELOG
     init.rb
-    lib/huberry/action_controller/abstract_request.rb
-    lib/huberry/action_controller/base.rb
-    lib/huberry/action_controller/named_route_collection.rb
-    lib/huberry/action_controller/url_rewriter.rb
-    lib/huberry/action_view/url_helper.rb
+    lib/huberry/proxy/action_controller/abstract_request.rb
+    lib/huberry/proxy/action_controller/base.rb
+    lib/huberry/proxy/action_controller/named_route_collection.rb
+    lib/huberry/proxy/action_controller/url_rewriter.rb
+    lib/huberry/proxy/action_view/url_helper.rb
     lib/proxy.rb
     MIT-LICENSE
     Rakefile
