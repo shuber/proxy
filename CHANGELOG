@@ -1,3 +1,6 @@
+2009-01-24 - Sean Huber (shuber@huberry.com)
+  * Add compatibility for edge/upcoming rails versions
+
 2009-01-08 - Sean Huber (shuber@huberry.com)
   * Add Proxy namespace
   * Remove .gitignore

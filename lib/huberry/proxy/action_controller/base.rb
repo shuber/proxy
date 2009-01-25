@@ -10,8 +10,8 @@ module Huberry
             around_filter :swap_session_domain
             cattr_accessor :original_relative_url_root
             cattr_accessor :proxy_relative_url_root
-            class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to? :relative_url_root; end
             alias_method_chain :redirect_to, :proxy
+            class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to?(:relative_url_root); end
           end
         end
 
