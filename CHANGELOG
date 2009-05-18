@@ -1,3 +1,6 @@
+2009-05-18 - Sean Huber (shuber@huberry.com)
+  * Fix compatibility issues with actionpack >= 2.2.2
+
 2009-01-24 - Sean Huber (shuber@huberry.com)
   * Add compatibility for edge/upcoming rails versions
 

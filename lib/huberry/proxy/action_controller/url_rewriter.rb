@@ -11,7 +11,10 @@ module Huberry
         # It will not set the :host option if <tt>options</tt> is not a hash or
         # if the <tt>ActionController::UrlWriter.default_url_options[:host]</tt> is blank
         def rewrite_url_with_proxy(options)
-          options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] if options.is_a?(Hash) && !::ActionController::UrlWriter.default_url_options[:host].blank?
+          if options.is_a?(Hash)
+            options[:host] ||= ::ActionController::UrlWriter.default_url_options[:host] unless ::ActionController::UrlWriter.default_url_options[:host].blank?
+            options.delete(:original_host)
+          end
           rewrite_url_without_proxy(options)
         end
       end

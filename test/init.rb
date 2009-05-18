@@ -1,3 +1,5 @@
+raise 'Must specify ACTION_PACK_VERSION' unless ENV['ACTION_PACK_VERSION']
+
 $:.reject! { |path| path.include? 'TextMate' }
 require 'test/unit'
 
@@ -7,15 +9,25 @@ require 'rubygems'
 
 # Load ActionPack
 #
-gem 'actionpack'
+gem 'actionpack', ENV['ACTION_PACK_VERSION']
 require 'action_pack'
 require 'action_controller'
-require 'action_controller/assertions'
 require 'action_controller/routing'
 require 'action_controller/session_management'
-require 'action_controller/test_process'
 require 'action_controller/url_rewriter'
+require 'action_controller/test_process'
 require 'action_view'
+
+Test::Unit::TestCase.class_eval do
+  include ActionController::TestProcess
+  
+  unless instance_methods.include?('assert_redirected_to')
+    def assert_redirected_to(url)
+      assert @response.redirect?
+      assert_equal url, @response.location
+    end
+  end
+end
 
 # Routing
 #

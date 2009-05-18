@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.2.3'
-  s.date    = '2009-01-24'
+  s.version = '1.3.0'
+  s.date    = '2009-05-18'
   
   s.summary     = 'A gem/plugin that allows rails applications to dynamically respond to proxied requests'
   s.description = 'A gem/plugin that allows rails applications to dynamically respond to proxied requests by detecting forwarded host/uri headers and setting the session domain, default host, and relative url root'

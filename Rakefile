@@ -3,7 +3,17 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 desc 'Default: run the proxy tests'
-task :default => :test
+task :default => :test_all_versions
+
+desc 'Default: run the proxy tests for all versions of actionpack'
+task :test_all_versions do
+  versions = `gem list`.match(/actionpack \((.+)\)/).captures[0].split(/, /).select { |v| v[0,1].to_i > 1 }
+  versions.each do |version|
+    puts "\n\n============================================================="
+    puts "TESTING WITH ACTION PACK VERSION #{version}\n\n"
+    system "rake test ACTION_PACK_VERSION=#{version}"
+  end
+end
 
 desc 'Test the proxy plugin.'
 Rake::TestTask.new(:test) do |t|
