@@ -1,3 +1,6 @@
+2009-05-20 - Sean Huber (shuber@huberry.com)
+  * Update date in gemspec so github rebuilds gem
+
 2009-05-18 - Sean Huber (shuber@huberry.com)
   * Fix compatibility issues with actionpack >= 2.2.2
 
