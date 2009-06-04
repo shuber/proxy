@@ -2,6 +2,7 @@
   * Update test related rake tasks
   * Remove huberry namespace
   * Add support for multiple domains
+  * Update README
 
 2009-05-20 - Sean Huber (shuber@huberry.com)
   * Update date in gemspec so github rebuilds gem
