@@ -12,6 +12,7 @@ args << ENV['ACTION_PACK_VERSION'] if ENV['ACTION_PACK_VERSION']
 gem *args
 require 'action_pack'
 require 'action_controller'
+require 'action_controller/dispatcher'
 require 'action_controller/routing'
 require 'action_controller/session_management'
 require 'action_controller/url_rewriter'
@@ -38,6 +39,8 @@ class ActionController::Routing::RouteSet
 	end
 end
 
+ActionController::Base.session_options.merge! :key => '_proxy_session', :secret => '60447f093cd3f5d57686dd5ca1ced83216c846047db0ec97480a5e85411d9bd41ec5587cc4aafac27a4f0e649f0c628b0955b315856b78787a96168671dc96d4'
+
 # Require the main proxy.rb file
 #
 require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'proxy')
@@ -45,6 +48,7 @@ require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'proxy')
 # Test controller
 #
 class TestController < ActionController::Base
+  
   def asset_action
     render :inline => '<%= image_tag "test.gif" %>, <%= javascript_include_tag "test" %>, <%= stylesheet_link_tag "test" %>'
   end

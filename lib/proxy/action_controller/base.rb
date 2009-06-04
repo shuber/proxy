@@ -13,7 +13,7 @@ module Proxy
           class << self; delegate :relative_url_root, :relative_url_root=, :to => ::ActionController::AbstractRequest unless ::ActionController::Base.respond_to?(:relative_url_root); end
         end
       end
-
+      
       protected
     
         # Calculates the <tt>relative_url_root</tt> by parsing the request path out of the
