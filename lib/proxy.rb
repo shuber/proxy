@@ -1,15 +1,15 @@
-require 'huberry/proxy/action_controller/abstract_request'
-require 'huberry/proxy/action_controller/base'
-require 'huberry/proxy/action_controller/named_route_collection'
-require 'huberry/proxy/action_controller/url_rewriter'
-require 'huberry/proxy/action_view/url_helper'
+require 'proxy/action_controller/abstract_request'
+require 'proxy/action_controller/base'
+require 'proxy/action_controller/named_route_collection'
+require 'proxy/action_controller/url_rewriter'
+require 'proxy/action_view/url_helper'
 
 ActionController::AbstractRequest = ActionController::Request if defined?(ActionController::Request)
-ActionController::AbstractRequest.send :include, Huberry::Proxy::ActionController::AbstractRequest
-ActionController::Base.send :include, Huberry::Proxy::ActionController::Base
-ActionController::Routing::RouteSet::NamedRouteCollection.send :include, Huberry::Proxy::ActionController::NamedRouteCollection
-ActionController::UrlRewriter.send :include, Huberry::Proxy::ActionController::UrlRewriter
-ActionView::Base.send :include, Huberry::Proxy::ActionView::UrlHelper
+ActionController::AbstractRequest.send :include, Proxy::ActionController::AbstractRequest
+ActionController::Base.send :include, Proxy::ActionController::Base
+ActionController::Routing::RouteSet::NamedRouteCollection.send :include, Proxy::ActionController::NamedRouteCollection
+ActionController::UrlRewriter.send :include, Proxy::ActionController::UrlRewriter
+ActionView::Base.send :include, Proxy::ActionView::UrlHelper
 
 unless ActionController::UrlWriter.respond_to?(:default_url_options)
   ActionController::Base.class_eval do
