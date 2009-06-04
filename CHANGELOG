@@ -1,3 +1,6 @@
+2009-06-04 - Sean Huber (shuber@huberry.com)
+  * Update test related rake tasks
+
 2009-05-20 - Sean Huber (shuber@huberry.com)
   * Update date in gemspec so github rebuilds gem
 

@@ -1,5 +1,3 @@
-raise 'Must specify ACTION_PACK_VERSION' unless ENV['ACTION_PACK_VERSION']
-
 $:.reject! { |path| path.include? 'TextMate' }
 require 'test/unit'
 
@@ -9,7 +7,9 @@ require 'rubygems'
 
 # Load ActionPack
 #
-gem 'actionpack', ENV['ACTION_PACK_VERSION']
+args = ['actionpack']
+args << ENV['ACTION_PACK_VERSION'] if ENV['ACTION_PACK_VERSION']
+gem *args
 require 'action_pack'
 require 'action_controller'
 require 'action_controller/routing'
