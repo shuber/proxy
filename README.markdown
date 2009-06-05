@@ -4,7 +4,7 @@ A gem/plugin that allows rails applications to dynamically respond to multiple d
 
 The original session domain, default host, and relative url root will be restored after each request.
 
-Requires actionpack version >= 2.0.0
+Requires actionpack >= 2.0.0
 
 
 ## Installation
@@ -73,7 +73,7 @@ Now, it gets tricky if you want `http://cool-site.com` to render `cool-site`'s p
 	  
 	  # you can put this in an initializer or something instead if you'd like
 	  Proxy.replace_host_with do |request|
-	    "#{Site.find_by_domain(request.host).try(:subdomain) || '-INVALID-'}.yourcmsapp.com" unless request.host =~ /(.*\.|^)yourcmsapp.com$/i
+	    "#{Site.find_by_domain(request.host).try(:subdomain) || '-INVALID-'}.yourcmsapp.com" unless request.host =~ /(\.|^)yourcmsapp.com$/i
 	  end
 	  
 	end
