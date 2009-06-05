@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.3.1'
-  s.date    = '2009-06-04'
+  s.version = '1.3.2'
+  s.date    = '2009-06-05'
   
   s.summary     = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   s.description = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     MIT-LICENSE
     Rakefile
     README.markdown
+    test/init.rb
   )
   
   s.test_files = %w(
