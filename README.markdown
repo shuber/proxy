@@ -69,13 +69,10 @@ Imagine you have a CMS that hosts multiple client sites. You want your users to 
 
 Now, it gets tricky if you want `http://cool-site.com` to render `cool-site`'s public content because you can't tell if this request has a subdomain or not. In order for your routes to work, you must have all requests coming in from your domain `yourcmsapp.com`. You can accomplish this by calling the `Proxy.replace_host_with(&block)` method like so:
 
-	class ApplicationController < ActionController::Base
-	  
-	  # you can put this in an initializer or something instead if you'd like
-	  Proxy.replace_host_with do |request|
-	    "#{Site.find_by_domain(request.host).try(:subdomain) || '-INVALID-'}.yourcmsapp.com" unless request.host =~ /(\.|^)yourcmsapp.com$/i
-	  end
-	  
+	# config/initializers/proxy.rb
+        
+	Proxy.replace_host_with do |request|
+	  "#{Site.find_by_domain(request.host).try(:subdomain) || '-INVALID-'}.yourcmsapp.com" unless request.host =~ /(\.|^)yourcmsapp.com$/i
 	end
 
 Let's examine what this block is doing:
