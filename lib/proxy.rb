@@ -16,9 +16,8 @@ module Proxy
   
     def self.before_dispatch(dispatcher)
       request = dispatcher.instance_variable_get('@request') || dispatcher.instance_variable_get('@env')
-      if request.is_a?(Hash)
-        request.each(&:inspect) # TODO: we can't access the 'rack.request' key without doing this first...wtf
-        request = request['rack.request']
+      if request.kind_of?(Hash)
+        request = Rack::Request.new(request)
       end
       new_host = replace_host_with_proc.call(request)
       request.env['HTTP_X_FORWARDED_HOST'] = [request.host, new_host].join(', ') unless new_host.blank?
