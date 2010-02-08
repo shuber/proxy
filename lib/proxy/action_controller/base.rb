@@ -61,8 +61,13 @@ module Proxy
         # If you have an action that calls <tt>redirect_to new_videos_path</tt>, the example.com domain
         # would be used instead of your-domain.com
         def redirect_to_with_proxy(*args)
-          args[0] = request.protocol + ::ActionController::UrlWriter.default_url_options[:host] + args.first if args.first.is_a?(String) && !%r{^\w+://.*}.match(args.first) && !::ActionController::UrlWriter.default_url_options[:host].blank?
+          args[0] = request.protocol + url_options[:host] + args.first if args.first.is_a?(String) && !%r{^\w+://.*}.match(args.first) && !url_options[:host].blank?
           redirect_to_without_proxy(*args)
+        end
+        
+        # Returns ::ActionController::Base.session_options
+        def session_options
+          ::ActionController::Base.session_options
         end
     
         # Sets the <tt>proxy_relative_url_root</tt> using the +parse_proxy_relative_url_root+ method
@@ -78,12 +83,12 @@ module Proxy
         # The original default host is restored after each request and can be accessed by calling
         #   <tt>ActionController::UrlWriter.default_url_options[:original_host]</tt>
         def swap_default_host
-          ::ActionController::UrlWriter.default_url_options[:original_host] = ::ActionController::UrlWriter.default_url_options[:host]
-          ::ActionController::UrlWriter.default_url_options[:host] = request.forwarded_hosts.first unless request.forwarded_hosts.empty?
+          url_options[:original_host] = url_options[:host]
+          url_options[:host] = request.forwarded_hosts.first unless request.forwarded_hosts.empty?
           begin
             yield
           ensure
-            ::ActionController::UrlWriter.default_url_options[:host] = ::ActionController::UrlWriter.default_url_options[:original_host]
+            url_options[:host] = url_options[:original_host]
           end
         end
       
@@ -107,13 +112,18 @@ module Proxy
         # The original session domain is restored after each request and can be accessed by calling
         #   <tt>ActionController::Base.session_options[:original_session_domain]</tt>
         def swap_session_domain
-          ::ActionController::Base.session_options[:original_session_domain] = ::ActionController::Base.session_options[:session_domain]
-          ::ActionController::Base.session_options[:session_domain] = parse_session_domain unless request.forwarded_hosts.empty?
+          session_options[:original_session_domain] = session_options[:session_domain] || session_options[:domain]
+          session_options[:session_domain] = session_options[:domain] = parse_session_domain unless request.forwarded_hosts.empty?
           begin
             yield
           ensure
-            ::ActionController::Base.session_options[:session_domain] = ::ActionController::Base.session_options[:original_session_domain]
+            session_options[:session_domain] = session_options[:domain] = session_options[:original_session_domain]
           end
+        end
+        
+        # Returns ::ActionController::UrlWriter.default_url_options
+        def url_options
+          ::ActionController::UrlWriter.default_url_options
         end
     end
   end

@@ -61,6 +61,14 @@ class BaseTest < Test::Unit::TestCase
     assert_equal '.example.com', ::ActionController::Base.session_options[:session_domain]
   end
   
+  def test_should_restore_original_session_domain_with_domain_key
+    ::ActionController::Base.session_options[:domain] = '.example.com'
+    add_forwarded_host_headers
+    get :session_action
+    assert_equal '.domain.com', @response.body
+    assert_equal '.example.com', ::ActionController::Base.session_options[:domain]
+  end
+  
   def test_should_restore_original_session_if_exception_is_raised
     ::ActionController::Base.session_options[:session_domain] = '.example.com'
     add_forwarded_host_headers
