@@ -11,7 +11,7 @@ Requires actionpack >= 2.0.0
 
 	script/plugin install git://github.com/shuber/proxy.git
 	OR
-	gem install shuber-proxy --source http://gems.github.com
+	gem install proxy
 
 
 ## Usage
