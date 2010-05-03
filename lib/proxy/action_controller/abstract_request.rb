@@ -22,7 +22,7 @@ module Proxy
       def forwarded_hosts
         hosts = env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
         unless hosts.empty? || hosts.first != hosts.last
-          hosts[hosts.size - 1] = env['HTTP_HOST']
+          hosts << env['HTTP_HOST'] unless env['HTTP_HOST'].blank?
           env['HTTP_X_FORWARDED_HOST'] = hosts.join(', ')
         end
         hosts

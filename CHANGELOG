@@ -1,5 +1,6 @@
 2009-06-05 - Sean Huber (shuber@huberry.com)
   * Fix bug with passenger
+  * Append http host instead of replacing
 
 2009-06-05 - Sean Huber (shuber@huberry.com)
   * Add multiple domain support for rack
