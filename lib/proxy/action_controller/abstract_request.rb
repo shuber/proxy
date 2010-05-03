@@ -20,7 +20,12 @@ module Proxy
       #
       # Returns an empty array if there aren't any forwarded hosts
       def forwarded_hosts
-        env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
+        hosts = env['HTTP_X_FORWARDED_HOST'].to_s.split(/,\s*/)
+        unless hosts.empty? || hosts.first != hosts.last
+          hosts[hosts.size - 1] = env['HTTP_HOST']
+          env['HTTP_X_FORWARDED_HOST'] = hosts.join(', ')
+        end
+        hosts
       end
     
       # Parses the forwarded uri header and returns an array of forwarded uris

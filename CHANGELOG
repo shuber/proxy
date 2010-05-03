@@ -1,4 +1,7 @@
 2009-06-05 - Sean Huber (shuber@huberry.com)
+  * Fix bug with passenger
+
+2009-06-05 - Sean Huber (shuber@huberry.com)
   * Add multiple domain support for rack
   * Update gemspec
   * Update README

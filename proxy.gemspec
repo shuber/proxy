@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.3.3'
-  s.date    = '2010-02-08'
+  s.version = '1.3.4'
+  s.date    = '2010-05-03'
   
   s.summary     = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   s.description = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
