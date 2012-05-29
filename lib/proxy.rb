@@ -7,13 +7,13 @@ require 'proxy/action_view/url_helper'
 module Proxy
   mattr_accessor :replace_host_with_proc
   self.replace_host_with_proc = proc { |request| }
-  
+
   def self.replace_host_with(&block)
     self.replace_host_with_proc = block
   end
-  
+
   private
-  
+
     def self.before_dispatch(dispatcher)
       request = dispatcher.instance_variable_get('@request') || dispatcher.instance_variable_get('@env')
       request = Rack::Request.new(request) if request.is_a?(Hash)
@@ -22,7 +22,7 @@ module Proxy
     end
 end
 
-ActionController::Dispatcher.before_dispatch do |dispatcher|
+ActionDispatch::Callbacks.before do |dispatcher|
   Proxy.send :before_dispatch, dispatcher
 end
 
@@ -36,14 +36,15 @@ ActionView::Base.send :include, Proxy::ActionView::UrlHelper
 unless ActionController::UrlWriter.respond_to?(:default_url_options)
   ActionController::Base.class_eval do
     include ActionController::UrlWriter
-    
+
     def default_url_options_with_backwards_compatibility(*args)
       default_url_options_without_backwards_compatibility
     end
     alias_method_chain :default_url_options, :backwards_compatibility
   end
-  
+
   class << ActionController::UrlWriter
     delegate :default_url_options, :default_url_options=, :to => ::ActionController::Base
   end
 end
+
