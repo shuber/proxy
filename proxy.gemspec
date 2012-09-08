@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name    = 'proxy'
+  s.name    = 'hybridgroup-proxy'
   s.version = '1.3.6'
   s.date    = '2012-09-08'
   
