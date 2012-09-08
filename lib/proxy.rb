@@ -18,6 +18,12 @@ module Proxy
       request = dispatcher.instance_variable_get('@request') || dispatcher.instance_variable_get('@env')
       request = Rack::Request.new(request) if request.is_a?(Hash)
       new_host = replace_host_with_proc.call(request)
+      if /([^\.]+\.[^\.]+)$/.match(request.host)
+        original_host = ".#{$1}"
+      else
+        original_host = request.host
+      end
+      request.env['rack.session.options'].merge!(:domain => original_host) # force cookie that matches original domain without subdomain
       request.env['HTTP_X_FORWARDED_HOST'] = [request.host, new_host].join(', ') unless new_host.blank?
     end
 end

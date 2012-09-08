@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.name    = 'proxy'
-  s.version = '1.3.5'
-  s.date    = '2010-05-03'
+  s.version = '1.3.6'
+  s.date    = '2012-09-08'
   
   s.summary     = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   s.description = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   
-  s.author   = 'Sean Huber'
+  s.author   = 'Sean Huber, with changes from Ron Evans'
   s.email    = 'shuber@huberry.com'
-  s.homepage = 'http://github.com/shuber/proxy'
+  s.homepage = 'http://github.com/hybridgroup/proxy'
   
   s.has_rdoc = false
   s.rdoc_options = ['--line-numbers', '--inline-source', '--main', 'README.markdown']
