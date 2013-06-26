@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
   s.files = %w(
     CHANGELOG
     init.rb
-    lib/proxy/action_controller/abstract_request.rb
+    lib/proxy/action_dispatch/request.rb
     lib/proxy/action_controller/base.rb
-    lib/proxy/action_controller/named_route_collection.rb
+    lib/proxy/action_dispatch/named_route_collection.rb
     lib/proxy/action_controller/url_rewriter.rb
     lib/proxy/action_view/url_helper.rb
     lib/proxy.rb
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   )
   
   s.test_files = %w(
-    test/abstract_request_test.rb
+    test/request_test.rb
     test/base_test.rb
     test/named_route_collection_test.rb
     test/proxy_test.rb
