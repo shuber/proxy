@@ -7,7 +7,6 @@ class BaseTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @request.host = 'example.com'
-    ActionController::Base.relative_url_root = '/app'
   end
 
   def test_should_get_normal_action
@@ -23,7 +22,6 @@ class BaseTest < ActionController::TestCase
 
   def test_should_set_forwarded_host_in_a_named_route
     add_forwarded_host_headers
-
     get :named_route_action
     assert_equal "http://domain.com/normal_action", @response.body
   end
@@ -35,14 +33,12 @@ class BaseTest < ActionController::TestCase
   end
 
   def test_url_generators_in_views_should_use_forwarded_host
-    pending
     add_forwarded_host_headers
     get :view_action
-    assert_equal "/normal_action, http://domain.com/normal_action, http://domain.com/normal_action, /normal_action", @response.body
+    assert_equal "/normal_action, http://domain.com/normal_action, /normal_action, /normal_action", @response.body
   end
 
   def test_asset_tag_helpers_should_not_use_forwarded_host
-    pending
     add_forwarded_host_headers
     get :asset_action
     assert_nil(/domain\.com/.match(@response.body))
@@ -94,68 +90,6 @@ class BaseTest < ActionController::TestCase
     add_forwarded_host_headers
     get :redirect_action
     assert_equal 'some-other-domain.com', request.host
-  end
-
-  def test_should_swap_relative_url_root
-    pending
-    add_forwarded_uri_headers
-    get :normal_action
-    assert_equal "http://#{@request.host}/test/ing/normal_action", @response.body
-    assert_equal '/app', ActionController::Base.relative_url_root
-  end
-
-  def test_should_set_proxy_relative_url_root
-    pending
-    add_forwarded_uri_headers
-    get :normal_action
-    assert_equal '/test/ing', ActionController::Base.proxy_relative_url_root
-  end
-
-  def test_should_set_proxy_relative_url_root_in_a_named_route
-    pending
-    @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/named_route_action'
-    @request.env['PATH_INFO'] = '/named_route_action'
-    get :named_route_action
-    assert_equal "http://#{@request.host}/test/ing/normal_action", @response.body
-  end
-
-  def test_should_set_original_relative_url_root
-    pending
-    add_forwarded_uri_headers
-    get :normal_action
-    assert_equal '/app', ActionController::Base.original_relative_url_root
-  end
-
-  def test_should_restore_relative_url_root_if_exception_is_raised
-    pending
-    add_forwarded_uri_headers
-    assert_raises(RuntimeError) { get :exception_action }
-    assert_equal '/app', ActionController::Base.relative_url_root
-  end
-
-  def test_should_restore_relative_url_root_if_exception_is_raised
-    pending
-    add_forwarded_uri_headers
-    get :redirect_action
-    assert_equal '/app', ActionController::Base.relative_url_root
-  end
-
-  def test_url_generators_in_views_should_use_forwarded_uri
-    pending
-    @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/view_action'
-    @request.env['PATH_INFO'] = '/view_action'
-    get :view_action
-    assert_equal "/test/ing/normal_action, http://example.com/test/ing/normal_action, /test/ing/normal_action, /test/ing/normal_action", @response.body
-  end
-
-  def test_asset_tag_helpers_should_use_forwarded_uri
-    pending
-    @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/asset_action'
-    @request.env['PATH_INFO'] = '/asset_action'
-    get :asset_action
-    assert !@response.body.scan(/img[^>]+src\="\/test\/ing\/images\/test\.gif"/).empty?
-    assert !@response.body.scan(/script[^>]+src\="\/test\/ing\/javascripts\/test\.js"/).empty?
-    assert !@response.body.scan(/link[^>]+href\="\/test\/ing\/stylesheets\/test\.css"/).empty?
   end
 
   def test_should_use_forwarded_host_in_a_redirect

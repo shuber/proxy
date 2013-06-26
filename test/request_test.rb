@@ -5,8 +5,6 @@ class RequestTest < Test::Unit::TestCase
   def setup
     @request = ActionDispatch::TestRequest.new
     @request.env['HTTP_HOST'] = 'example.com'
-    #ActionController::UrlWriter.default_url_options[:host] = nil
-    ActionController::Base.relative_url_root = nil
   end
 
   def test_forwarded_hosts_should_be_empty
