@@ -1,7 +1,6 @@
-require 'proxy/action_dispatch/request'
 require 'proxy/action_controller/base'
 require 'proxy/action_dispatch/named_route_collection'
-require 'proxy/action_controller/url_rewriter'
+require 'proxy/action_dispatch/request'
 require 'proxy/action_view/url_helper'
 
 module Proxy
