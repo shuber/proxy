@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary     = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   s.description = 'A gem/plugin that allows rails applications to respond to multiple domains and proxied requests'
   
-  s.author   = 'Sean Huber, with changes from Ron Evans'
+  s.author   = 'Sean Huber, with changes from Ron Evans and Javier Cervantes'
   s.email    = 'shuber@huberry.com'
   s.homepage = 'http://github.com/hybridgroup/proxy'
   
@@ -19,9 +19,7 @@ Gem::Specification.new do |s|
     CHANGELOG
     init.rb
     lib/proxy/action_controller/base.rb
-    lib/proxy/action_dispatch/named_route_collection.rb
     lib/proxy/action_dispatch/request.rb
-    lib/proxy/action_view/url_helper.rb
     lib/proxy.rb
     MIT-LICENSE
     Rakefile
@@ -31,9 +29,7 @@ Gem::Specification.new do |s|
   
   s.test_files = %w(
     test/base_test.rb
-    test/named_route_collection_test.rb
     test/proxy_test.rb
     test/request_test.rb
-    test/url_helper_test.rb
   )
 end

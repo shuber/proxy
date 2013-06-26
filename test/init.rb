@@ -1,25 +1,18 @@
 $:.reject! { |path| path.include? 'TextMate' }
 require 'test/unit'
-
-# Load rubygems
-#
 require 'rubygems'
 
 # Load ActionPack
-#
 args = ['actionpack']
 args << ENV['ACTION_PACK_VERSION'] if ENV['ACTION_PACK_VERSION']
 gem *args
 require 'action_pack'
 require 'action_controller'
-require 'action_dispatch/routing/route_set'
-require 'action_dispatch/routing'
-require 'action_dispatch/routing/mapper'
 require 'action_controller/metal/session_management'
-#require 'action_controller/deprecated/url_rewriter'
 require 'action_dispatch/testing/test_process'
 require 'action_view'
 require 'action_controller/railtie'
+
 Rails.env = 'test'
 
 Test::Unit::TestCase.class_eval do
@@ -33,28 +26,16 @@ Test::Unit::TestCase.class_eval do
   end
 end
 
-# Routing
-#
-#class ActionDispatch::Routing::RouteSet
-	##def append
-    #yield Mapper.new(self)
-    #install_helpers
-	#end
-#end
-
-#ActionController::Base.session_options.merge! :key => '_proxy_session', :secret => '60447f093cd3f5d57686dd5ca1ced83216c846047db0ec97480a5e85411d9bd41ec5587cc4aafac27a4f0e649f0c628b0955b315856b78787a96168671dc96d4'
-
 module Proxy
   class TestApplication < Rails::Application
     require 'rails/test_help'
   end
 end
+
 # Require the main proxy.rb file
-#
 require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'proxy')
 
 # Test controller
-#
 class TestController < ActionController::Base
   include Rails.application.routes.url_helpers
 
@@ -99,7 +80,6 @@ end
 
 
 # Test routes
-#
 Proxy::TestApplication.routes.draw do
   match 'asset_action' => 'test#asset_action'
   match 'exception_action' => 'test#exception_action'
