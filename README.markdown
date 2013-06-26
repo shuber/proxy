@@ -1,17 +1,17 @@
 # Proxy
 
-A gem/plugin that allows rails applications to dynamically respond to multiple domains and proxied requests by detecting forwarded host/uri headers and setting the session domain, default host, and relative url root. The plugin adds this functionality to calls to url\_for, named route helpers, and view url helpers while still allowing you to specifically set the :host and :only\_path options to override this behavior.
+A gem/plugin that allows rails applications to dynamically respond to multiple domains and proxied requests by detecting forwarded host/uri headers and setting the session domain and default host. The plugin adds this functionality to calls to url\_for, named route helpers, and view url helpers while still allowing you to specifically set the :host and options to override this behavior.
 
 The original session domain, default host, and relative url root will be restored after each request.
 
-Requires actionpack >= 2.0.0
+Requires actionpack >= 2.3.18
 
 
 ## Installation
 
-	script/plugin install git://github.com/shuber/proxy.git
+	script/plugin install git://github.com/hybridgroup-proxy/proxy.git
 	OR
-	gem install proxy
+	gem install hybridgroup-proxy
 
 
 ## Usage
@@ -27,21 +27,6 @@ Imagine you sold an account to a client but the client wants the application to 
 	http://clientdomain.com/orders
 
 This plugin will automatically detect this forwarded host and set the session domain and default host (for url generation) accordingly.
-
-
-### Proxied Requests with Custom URIs
-
-Now imagine the client had an existing ordering system already running at /orders, and he wants to slowly migrate his data into your application, so he'll need both applications running for awhile. He wants to keep his original ordering application running at /orders and he wants your application running at:
-
-	http://clientdomain.com/neworders
-
-All the client has to do is proxy /neworders to http://client.example.com/orders and this plugin will automatically detect the forwarded request uri and set the relative url root for your application accordingly. Now whenever urls are generated, they will correctly use /neworders as the relative url root instead of /orders.
-
-Note: this plugin looks for a request header called 'HTTP\_X\_FORWARDED\_URI' to detect the relative root url by default, but this can be overwritten like so:
-
-	ActionController::AbstractRequest.forwarded_uri_header_name = 'SOME_CUSTOM_HEADER_NAME'
-
-You can add that line in environment.rb or an initializer.
 
 
 #### Relative Url Root Proxy Setup
@@ -87,4 +72,4 @@ If `nil, false, or an empty string` is returned when you call the `Proxy.replace
 
 ## Contact
 
-Problems, comments, and suggestions all welcome: [shuber@huberry.com](mailto:shuber@huberry.com)
+Problems, comments, and suggestions all welcome: [javier@hybridgroup.com](mailto:javier@hybridgroup.com)
