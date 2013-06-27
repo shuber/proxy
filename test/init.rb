@@ -78,6 +78,7 @@ class TestController < ActionController::Base
   end
 end
 
+ENV['RAILS_ASSET_ID'] = '1'
 
 # Test routes
 Proxy::TestApplication.routes.draw do
