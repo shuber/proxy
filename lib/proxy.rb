@@ -51,6 +51,8 @@ module Proxy
       request.env['rack.session.options'].merge!(:domain => original_host) if session_options# force cookie that matches original domain without subdomain
       request.env['HTTP_X_FORWARDED_HOST'] = [request.host, new_host].join(', ') unless new_host.blank?
 
+      env['@request'] = request
+
       @app.call(env)
     end
   end
