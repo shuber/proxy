@@ -41,7 +41,7 @@ The client's proxy must forward the request uri header in order for this plugin 
 
 Imagine you have a CMS that hosts multiple client sites. You want your users to manage their sites on your root domain `http://yourcmsapp.com` and you display a site's public content when it's accessed by its subdomain (e.g. `http://cool-site.yourcmsapp.com`). You'll probably be using [subdomain-fu](http://github.com/mbleigh/subdomain-fu) so you can route based on subdomains like:
 
-	ActionController::Routing::Routes.draw do |map|
+	ApplicationName.routes.draw do |map|
 	  # this routing controller has a before_filter callback that looks up a site by subdomain
 	  map.public_page '*path', :controller => 'routing', :conditions => { :subdomain => /^[^\.]+$/ }
 	
@@ -56,7 +56,7 @@ Now, it gets tricky if you want `http://cool-site.com` to render `cool-site`'s p
 
 	# config/initializers/proxy.rb
         
-	Proxy.replace_host_with do |request|
+	Proxy::Middleware.replace_host_with do |request|
 	  "#{Site.find_by_domain(request.host).try(:subdomain) || '-INVALID-'}.yourcmsapp.com" unless request.host =~ /(\.|^)yourcmsapp.com$/i
 	end
 
@@ -67,7 +67,7 @@ Let's examine what this block is doing:
 * If a site does exist, a new host is returned using the site's `subdomain` with your app domain and everything renders fine, otherwise...
 * A fake host is returned (-INVALID-.yourcmsapp.com), and the request 404s once it gets to your `routing` controller and a site can't be found with the subdomain `-INVALID-`
 
-If `nil, false, or an empty string` is returned when you call the `Proxy.replace_host_with` method, the current request's host is not modified. Otherwise, the `HTTP_X_FORWARDED_HOST` request header is set to: `"#{the_original_host}, #{the_new_host}"`. This allows your routes to use your domain when evaluating routing conditions and also allows all of the application's url generators to use the original host.
+If `nil, false, or an empty string` is returned when you call the `Proxy::Middleware.replace_host_with` method, the current request's host is not modified. Otherwise, the `HTTP_X_FORWARDED_HOST` request header is set to: `"#{the_original_host}, #{the_new_host}"`. This allows your routes to use your domain when evaluating routing conditions and also allows all of the application's url generators to use the original host.
 
 
 ## Contact
