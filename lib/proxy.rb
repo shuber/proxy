@@ -26,7 +26,6 @@ module Proxy
 
       env['rack.session.options'][:domain] = original_host
       unless new_host.blank?
-        env['HTTP_X_HOST'] = new_host
         env['HTTP_X_FORWARDED_HOST'] = [request.host, new_host].join(', ')
       end
 
