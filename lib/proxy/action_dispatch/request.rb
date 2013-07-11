@@ -1,6 +1,6 @@
 module Proxy
-  module ActionController
-    module AbstractRequest
+  module ActionDispatch
+    module Request
       def self.included(base)
         base.class_eval do
           mattr_accessor :forwarded_uri_header_name
@@ -8,12 +8,12 @@ module Proxy
           memoize :forwarded_hosts, :forwarded_uris if respond_to? :memoize
         end
       end
-    
+
       # Parses the forwarded host header and returns an array of forwarded hosts
       #
       # For example:
       #
-      #   If the HTTP_X_FORWARDED_HOST header was set to 
+      #   If the HTTP_X_FORWARDED_HOST header was set to
       #     'some-domain.com, some-other-domain.com, and-another-domain.com'
       #
       # This method would return ['some-domain.com', 'some-other-domain.com', 'and-another-domain.com']
@@ -27,12 +27,12 @@ module Proxy
         end
         hosts
       end
-    
+
       # Parses the forwarded uri header and returns an array of forwarded uris
       #
       # For example:
       #
-      #   If the HTTP_X_FORWARDED_URI header was set to 
+      #   If the HTTP_X_FORWARDED_URI header was set to
       #     '/some/path, /some/other/path, /and/another/path'
       #
       # This method would return ['/some/path, '/some/other/path', '/and/another/path']
