@@ -4,6 +4,7 @@ module Proxy
       def self.included(base)
         base.class_eval do
           around_filter :swap_session_domain
+          around_filter :swap_default_host
           alias_method_chain :redirect_to, :proxy
         end
       end
@@ -40,6 +41,20 @@ module Proxy
           redirect_to_without_proxy(*args)
         end
 
+        # Sets the <tt>default_url_options[:host]</tt> to the first forwarded host if there are any
+        #
+        # The original default host is restored after each request and can be accessed by calling
+        #   <tt>ActionController::UrlWriter.default_url_options[:original_host]</tt>
+        def swap_default_host
+          url_options[:original_host] = url_options[:host]
+          url_options[:host] = request.forwarded_hosts.first unless request.forwarded_hosts.empty?
+
+          begin
+            yield
+          ensure
+            url_options[:host] = url_options[:original_host]
+          end
+        end
         # Sets the <tt>session_options[:session_domain]</tt> to the result of the +parse_session_domain+ method
         # unless there aren't any forwarded hosts
         #
@@ -68,8 +83,8 @@ module Proxy
         def url_options
           options = super.dup
 
-          unless request.forwarded_hosts.empty?
-            options[:host] = request.forwarded_hosts.first
+          if default_options = ::Rails.application.config.action_controller.default_url_options
+            options.reverse_merge!(default_options)
           end
 
           options

@@ -29,7 +29,7 @@ class BaseTest < ActionController::TestCase
   def test_should_restore_the_original_default_host
     add_forwarded_host_headers
     get :normal_action
-    assert_equal "http://domain.com/normal_action", @response.body
+    assert_equal "http://example.com/normal_action", @response.body
   end
 
   def test_url_generators_in_views_should_use_forwarded_host
@@ -106,13 +106,8 @@ class BaseTest < ActionController::TestCase
 
   protected
 
-    def add_forwarded_host_headers
-      @request.env['HTTP_X_FORWARDED_HOST'] = 'domain.com'
-    end
-
-    def add_forwarded_uri_headers
-      @request.env['HTTP_X_FORWARDED_URI'] = '/test/ing/normal_action'
-      @request.env['PATH_INFO'] = '/normal_action'
-    end
+  def add_forwarded_host_headers
+    @request.env['HTTP_X_FORWARDED_HOST'] = 'domain.com'
+  end
 
 end
